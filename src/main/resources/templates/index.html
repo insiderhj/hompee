@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>메인</title>
+</head>
+<body>
+<h1>메인 페이지</h1>
+<hr>
+<div th:unless="${auth}">
+    <a th:href="@{/login}">로그인</a>
+    <a th:href="@{/forgotPassword}">비밀번호 찾기</a>
+    <a th:href="@{/signUp}">회원가입</a>
+</div>
+<div th:if="${auth}">
+    <a th:href="@{/logout}">로그아웃</a>
+    <a th:href="@{/info}">내정보</a>
+    <a id="closeAccount" th:href="@{/closeAccount}">회원탈퇴</a>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#closeAccount').on('click', function() {
+        alert('회원탈퇴가 완료되었습니다.');
+    });
+</script>
+</body>
+</html>
