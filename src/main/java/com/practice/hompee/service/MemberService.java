@@ -38,8 +38,16 @@ public class MemberService implements UserDetailsService {
         return memberRepository.findByEmail(email);
     }
 
-    public void changePassword(String email, String password) {
+    public void updatePassword(String email, String password) {
         memberRepository.updatePassword(email, bCryptPasswordEncoder.encode(password));
+    }
+
+    public void updateName(String email, String name) {
+        memberRepository.updateName(email, name);
+    }
+
+    public void updatePhoneNumber(String email, String phoneNumber) {
+        memberRepository.updatePhoneNumber(email, phoneNumber);
     }
 
     public void deleteMember(String email) {

@@ -17,6 +17,16 @@ public interface MemberRepository extends CrudRepository<Member, Long> {
     @Query(value="update members set password = :password where email = :email", nativeQuery = true)
     void updatePassword(@Param("email") String email, @Param("password") String password);
 
+    @Modifying
+    @Transactional
+    @Query(value="update members set name = :name where email = :email", nativeQuery = true)
+    void updateName(@Param("email") String email, @Param("name") String name);
+
+    @Modifying
+    @Transactional
+    @Query(value="update members set phone_number = :phoneNumber where email = :email", nativeQuery = true)
+    void updatePhoneNumber(@Param("email") String email, @Param("phoneNumber") String phoneNumber);
+
     @Transactional
     long deleteByEmail(String email);
 }

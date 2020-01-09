@@ -3,15 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <title>내정보</title>
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
+<h1>내정보</h1>
+<hr>
 <p>이메일</p>
-<input type="email" value="">
+<span id="email" th:text="${member.getEmail()}"></span>
 <p>비밀번호</p>
-<button type="button">비밀번호 변경</button>
+<button type="button" id="btnChangePassword">비밀번호 변경하기</button>
 <p>이름</p>
-<input >
+<span id="txtName" th:text="${member.getName()}"></span>
+<input id="inputName" th:value="${member.getName()}" style="display:none">
+<button type="button" id="btnChangeName">수정</button>
+<button type="button" id="btnSubmitName" style="display:none">완료</button>
+<span id="changeNameStatus"></span>
 <p>전화번호</p>
-<input >
+<span id="txtPhoneNumber" th:text="${member.getPhoneNumber()}"></span>
+<input id="inputPhoneNumber" th:value="${member.getPhoneNumber()}" style="display:none">
+<button type="button" id="btnChangePhoneNumber">수정</button>
+<button type="button" id="btnSubmitPhoneNumber" style="display:none">완료</button>
+<span id="changePhoneNumberStatus"></span>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    // spring security 사용중일 때 ajax통신 가능하게 해주는 부분
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $(function() {
+        $(document).ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
+
+    $('#btnChangeName').on('click', function() {
+        $('#txtName').hide();
+        $('#btnChangeName').hide();
+
+        $('#inputName').show();
+        $('#btnSubmitName').show();
+    });
+
+    $('#btnSubmitName').on('click', function() {
+        if ($('#inputName').val() === '') {
+            $('#changeNameStatus').text('이름을 정확히 입력해주세요.');
+        } else {
+            $('#changeNameStatus').text('');
+            $('#inputName').hide();
+            $('#btnSubmitName').hide();
+
+            $('#txtName').text($('#inputName').val());
+            $('#txtName').show();
+            $('#btnChangeName').show();
+
+            $.ajax({
+                url: "/updateName",
+                type: "POST",
+                data: {email: $('#email').text(), name:$('#txtName').text()}
+            });
+        }
+    });
+
+    $('#btnChangePhoneNumber').on('click', function() {
+        $('#txtPhoneNumber').hide();
+        $('#btnChangePhoneNumber').hide();
+
+        $('#inputPhoneNumber').show();
+        $('#btnSubmitPhoneNumber').show();
+    });
+
+    $('#btnSubmitPhoneNumber').on('click', function() {
+        if ($('#inputPhoneNumber').val() === '') {
+            $('#changePhoneNumberStatus').text('전화번호를 정확히 입력해주세요.');
+        } else {
+            $('#changePhoneNumberStatus').text('');
+            $('#inputPhoneNumber').hide();
+            $('#btnSubmitPhoneNumber').hide();
+
+            $('#txtPhoneNumber').text($('#inputPhoneNumber').val());
+            $('#txtPhoneNumber').show();
+            $('#btnChangePhoneNumber').show();
+
+            $.ajax({
+                url: "/updatePhoneNumber",
+                type: "POST",
+                data: {email: $('#email').text(), phoneNumber:$('#txtPhoneNumber').text()}
+            });
+        }
+    });
+</script>
 </body>
 </html>

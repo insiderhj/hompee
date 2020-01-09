@@ -70,7 +70,7 @@ public class HompeeController {
 
     @PostMapping("/forgotPassword")
     public String changePassword(@Valid MemberVO memberVO) {
-        memberService.changePassword(memberVO.getEmail(), memberVO.getPassword());
+        memberService.updatePassword(memberVO.getEmail(), memberVO.getPassword());
 
         return "redirect:/";
     }
@@ -88,6 +88,18 @@ public class HompeeController {
         ModelAndView mav = new ModelAndView("info");
         mav.addObject("member", member);
         return mav;
+    }
+
+    @PostMapping("/updateName")
+    @ResponseBody
+    public void updateName(MemberVO memberVO) {
+        memberService.updateName(memberVO.getEmail(), memberVO.getName());
+    }
+
+    @PostMapping("/updatePhoneNumber")
+    @ResponseBody
+    public void updatePhoneNumber(MemberVO memberVO) {
+        memberService.updatePhoneNumber(memberVO.getEmail(), memberVO.getPhoneNumber());
     }
 
     @GetMapping("/closeAccount")
