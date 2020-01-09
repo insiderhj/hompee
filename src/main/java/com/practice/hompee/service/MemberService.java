@@ -34,6 +34,9 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(member).getId();
     }
 
+    public Member getMember(String email) {
+        return memberRepository.findByEmail(email);
+    }
 
     public void changePassword(String email, String password) {
         memberRepository.updatePassword(email, bCryptPasswordEncoder.encode(password));

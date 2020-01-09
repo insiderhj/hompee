@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
-public class HompyController {
+public class HompeeController {
 
     @Autowired
     private MemberService memberService;
@@ -78,6 +78,16 @@ public class HompyController {
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    @GetMapping("/info")
+    public ModelAndView info(@ModelAttribute("memberVO") MemberVO memberVO) {
+        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Member member = memberService.getMember(userDetails.getUsername());
+
+        ModelAndView mav = new ModelAndView("info");
+        mav.addObject("member", member);
+        return mav;
     }
 
     @GetMapping("/closeAccount")
