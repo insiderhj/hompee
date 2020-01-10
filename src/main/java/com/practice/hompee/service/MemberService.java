@@ -38,6 +38,10 @@ public class MemberService implements UserDetailsService {
         return memberRepository.findByEmail(email);
     }
 
+    public boolean checkPassword(String email, String password) {
+        return bCryptPasswordEncoder.matches(password, memberRepository.findByEmail(email).getPassword());
+    }
+
     public void updatePassword(String email, String password) {
         memberRepository.updatePassword(email, bCryptPasswordEncoder.encode(password));
     }

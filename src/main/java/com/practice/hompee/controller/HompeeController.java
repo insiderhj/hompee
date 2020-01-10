@@ -68,8 +68,8 @@ public class HompeeController {
         return "forgotPassword";
     }
 
-    @PostMapping("/forgotPassword")
-    public String changePassword(@Valid MemberVO memberVO) {
+    @PostMapping("/updatePasswordWithEmail")
+    public String updatePasswordWithEmail(@Valid MemberVO memberVO) {
         memberService.updatePassword(memberVO.getEmail(), memberVO.getPassword());
 
         return "redirect:/";
@@ -88,6 +88,20 @@ public class HompeeController {
         ModelAndView mav = new ModelAndView("info");
         mav.addObject("member", member);
         return mav;
+    }
+
+    @PostMapping("/checkPassword")
+    @ResponseBody
+    public boolean checkPassword(MemberVO memberVO) {
+        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return memberService.checkPassword(userDetails.getUsername(), memberVO.getPassword());
+    }
+
+    @PostMapping("/updatePassword")
+    @ResponseBody
+    public void updatePassword(MemberVO memberVO) {
+        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        memberService.updatePassword(userDetails.getUsername(), memberVO.getPassword());
     }
 
     @PostMapping("/updateName")
