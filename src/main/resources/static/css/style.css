@@ -45,12 +45,7 @@ p:hover {
     font-weight: 400;
     width: 105px;
     margin: 20px auto;
-    cursor: pointer;
     transition: 0.25s;
-}
-
-.box h1:hover {
-    color: #2ecc71;
 }
 
 .box input[type="email"], .box input[type="password"] {

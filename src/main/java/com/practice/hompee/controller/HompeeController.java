@@ -30,14 +30,15 @@ public class HompeeController {
 
     @GetMapping("/")
     public ModelAndView index(HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView("index");
-
+        ModelAndView mav;
         boolean auth = SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MEMBER"));
-        mav.addObject("auth", auth);
 
         if (auth) {
+            mav = new ModelAndView("index");
             UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             mav.addObject("name", memberService.getMember(userDetails.getUsername()).getName());
+        } else {
+            mav = new ModelAndView("login");
         }
         return mav;
     }
@@ -50,7 +51,7 @@ public class HompeeController {
         return confirmKey;
     }
 
-    @PostMapping("/emailExists")
+    @GetMapping("/emailExists")
     @ResponseBody
     public boolean emailExists(MemberVO memberVO) throws MessagingException {
         return memberService.emailExists(memberVO.getEmail());
@@ -73,8 +74,8 @@ public class HompeeController {
         return "forgotPassword";
     }
 
-    @PostMapping("/updatePasswordWithEmail")
-    public String updatePasswordWithEmail(@Valid MemberVO memberVO) {
+    @PostMapping("/forgotPassword")
+    public String updateForgotPassword(@Valid MemberVO memberVO) {
         memberService.updatePassword(memberVO.getEmail(), memberVO.getPassword());
 
         return "redirect:/";
@@ -93,15 +94,13 @@ public class HompeeController {
     @PostMapping("/checkPassword")
     @ResponseBody
     public boolean checkPassword(MemberVO memberVO) {
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return memberService.checkPassword(userDetails.getUsername(), memberVO.getPassword());
+        return memberService.checkPassword(memberVO.getEmail(), memberVO.getPassword());
     }
 
     @PostMapping("/updatePassword")
     @ResponseBody
     public void updatePassword(MemberVO memberVO) {
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        memberService.updatePassword(userDetails.getUsername(), memberVO.getPassword());
+        memberService.updatePassword(memberVO.getEmail(), memberVO.getPassword());
     }
 
     @PostMapping("/updateName")

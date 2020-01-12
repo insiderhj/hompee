@@ -42,7 +42,7 @@ $('#btnSendCode').on('click', function() {
         // 이메일 중복 체크
     $.ajax({
         url: "/emailExists",
-        type: "POST",
+        type: "get",
         data: {email: $('#email').val()},
         success: function (emailExists) {
             // 중복이 없다면 인증번호 발송

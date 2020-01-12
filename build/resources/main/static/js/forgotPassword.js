@@ -21,7 +21,7 @@ var confirmCode = undefined;
 $('#btnSendCode').on('click', function() {
     $.ajax({
         url: "/emailExists",
-        type: "POST",
+        type: "GET",
         data: {email: $('#email').val()},
         success: function(emailExists) {
             if (!emailExists) {

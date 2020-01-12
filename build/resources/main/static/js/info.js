@@ -44,7 +44,7 @@ $('#formChangePassword').on('submit', function() {
     $.ajax({
         url: "/checkPassword",
         type: "POST",
-        data: {password: $('#inputOldPassword').val()},
+        data: {email: $('#email').text(), password: $('#inputOldPassword').val()},
         success: function(result) {
             if (!result) {
                 showStatus('현재 비밀번호가 틀렸습니다.', 'getGrey', 'getRed');
@@ -59,7 +59,7 @@ $('#formChangePassword').on('submit', function() {
             $.ajax({
                 url: "/updatePassword",
                 type: "POST",
-                data: {password: $('#inputNewPassword').val()},
+                data: {email: $('#email').text(), password: $('#inputNewPassword').val()},
                 success: function() {
                     showStatus('비밀번호가 변경되었습니다.', 'getRed', 'getGrey');
 
