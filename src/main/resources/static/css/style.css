@@ -7,7 +7,6 @@ body {
 img {
     margin: 20px auto;
     width: 200px;
-
 }
 
 hr {
@@ -160,7 +159,7 @@ p:hover {
     position: absolute;
     width: 550px;
     height: 700px;
-
+    top: 0%;
     left: 30%;
     color: #bdc3c7;
     text-align: center;
@@ -170,13 +169,24 @@ p:hover {
     position: relative;
     width: 200px;
     height: 30px;
-    bottom: 10px;
     padding: 5px;
 }
 
-
 .form_box input[type="text"], .form_box input[type="email"], .form_box input[type="password"], .form_box input[type="tel"] {
+    background: transparent;
+    border: none;
+    outline: 0;
+    border-bottom: 2px solid #636e72;
+    color: #bdc3c7;
     padding: 5px 5px;
+    transition: 0.25s;
+}
+
+.form_box input[type="text"]:enabled, .form_box input[type="email"]:enabled, .form_box input[type="password"]:enabled, .form_box input[type="tel"]:enabled {
+    border-bottom: 2px solid #bdc3c7;
+}
+.form_box input[type="text"]:focus, .form_box input[type="email"]:focus, .form_box input[type="password"]:focus, .form_box input[type="tel"]:focus {
+    border-color: #2ecc71;
 }
 
 select {
@@ -185,30 +195,37 @@ select {
     padding: 3px;
 }
 
-.tel_box {
-    position: relative;
-    bottom: 5px;
-}
-
-.tel_box input[type="text"] {
-    width: 105px;
-    height: 20px;
-    text-align: center;
-}
-
-.bir_box {
-    position: relative;
-    bottom: 5px;
-}
-
-.bir_box input[type="text"] {
-    width: 85px;
-    height: 20px;
-    text-align: center;
-}
-
 .form_row {
 
+}
+
+.form_btn {
+    font-size: 13px;
+    text-decoration: none;
+    position: relative;
+
+    background: none;
+    display: inline;
+    margin: 1px;
+    text-align: center;
+
+    border: 2px solid #95a5a6;
+    padding: 6px 12px;
+
+    outline: none;
+    color: #bdc3c7;
+    border-radius: 20px;
+    transition: 0.25s;
+}
+
+.form_btn:enabled {
+    border: 2px solid #2ecc71;
+    color: white;
+}
+
+.form_btn:hover:enabled {
+    cursor: pointer;
+    background: #2ecc71;
 }
 
 .form_title {
@@ -233,29 +250,6 @@ select {
 .form_email {
     display: block;
     padding: 2px;
-}
-
-/* email */
-input[type="button"] {
-    width: 80px;
-    height: 30px;
-    position: relative;
-    bottom: 10px;
-}
-
-input[type="submit"] {
-    width: 80px;
-    height: 30px;
-    position: relative;
-    bottom: 10px;
-}
-
-/* submit */
-#submit {
-    width: 80px;
-    height: 30px;
-    position: relative;
-    top: 20px;
 }
 
 /* confirmStatus */

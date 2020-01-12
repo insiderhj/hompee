@@ -12,7 +12,7 @@ function showStatus(status, removeClass, addClass) {
     $('#statusFrame').removeClass(removeClass);
     $('#statusFrame').addClass(addClass);
     $("#statusFrame").slideToggle("slow");
-    $("#statusFrame").delay(5000).fadeOut(1500);
+    $("#statusFrame").delay(2000).fadeOut(1500);
 }
 
 var confirmCode = undefined;
@@ -79,4 +79,11 @@ $('#btnChangeEmail').on('click', function() {
 $('#submit').on('click', function() {
     $('#email').attr('disabled', false);
     alert('비밀번호 변경이 완료되었습니다.');
+});
+
+$('#formChangePassword').on('submit', function() {
+    if ($('#inputPassword').val() !== $('#inputPasswordCheck').val()) {
+        showStatus('비밀번호와 비밀번호 확인란이 일치하지 않습니다.', 'getGrey', 'getRed');
+        event.preventDefault();
+    }
 });

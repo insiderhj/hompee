@@ -12,8 +12,12 @@ public class MemberVO {
     private String password;
     private String name;
     private String phoneNumber;
+
+    private String firstZipCode;
     private String firstAddress;
     private String firstAddressDetail;
+
+    private String secondZipCode;
     private String secondAddress;
     private String secondAddressDetail;
 
@@ -23,7 +27,9 @@ public class MemberVO {
                 .password(password)
                 .name(name)
                 .phoneNumber(phoneNumber)
+                .firstZipCode(firstZipCode.equals("") ? null : firstZipCode)
                 .firstAddress(firstAddress.equals("") ? null : firstAddress + ' ' + firstAddressDetail)
+                .secondZipCode(secondZipCode.equals("") ? null : secondZipCode)
                 .secondAddress(secondAddress.equals("") ? null : secondAddress + ' ' + secondAddressDetail)
                 .build();
     }

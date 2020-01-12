@@ -22,10 +22,11 @@ function showStatus(status, removeClass, addClass) {
     $('#statusFrame').removeClass(removeClass);
     $('#statusFrame').addClass(addClass);
     $("#statusFrame").slideToggle("slow");
-    $("#statusFrame").delay(5000).fadeOut(1500);
+    $("#statusFrame").delay(2000).fadeOut(1500);
 }
 
-function getAddressValue(address) {
+function getAddressValue(zipCode, address) {
+    $('#input' + addressStatus + 'ZipCode').val(zipCode);
     $('#input' + addressStatus + 'Address').val(address);
     $('#input' + addressStatus + 'AddressDetail').val('');
     $('#input' + addressStatus + 'AddressDetail').attr('disabled', false);
@@ -112,9 +113,18 @@ $('#btnSearchSecondAddress').on('click', function() {
     newWindow.focus();
 });
 
-$('#submit').on('click', function() {
+$('#formSignUp').on('submit', function() {
     $('#email').attr('disabled', false);
+    $('#inputFirstZipCode').attr('disabled', false);
     $('#inputFirstAddress').attr('disabled', false);
+    $('#inputSecondZipCode').attr('disabled', false);
     $('#inputSecondAddress').attr('disabled', false);
+
+    if ($('#inputPassword').val() !== $('#inputPasswordCheck').val()) {
+        showStatus('비밀번호와 비밀번호 확인란이 일치하지 않습니다.', 'getGrey', 'getRed');
+        event.preventDefault();
+        return;
+    }
+
     alert('회원가입이 완료되었습니다.');
 });

@@ -29,13 +29,13 @@ public interface MemberRepository extends CrudRepository<Member, Long> {
 
     @Modifying
     @Transactional
-    @Query(value="update members set first_address = :address where email = :email", nativeQuery = true)
-    void updateFirstAddress(@Param("email") String email, @Param("address") String address);
+    @Query(value="update members set first_zip_code = :zipCode, first_address = :address where email = :email", nativeQuery = true)
+    void updateFirstAddress(@Param("email") String email, @Param("zipCode") String zipCode, @Param("address") String address);
 
     @Modifying
     @Transactional
-    @Query(value="update members set second_address = :address where email = :email", nativeQuery = true)
-    void updateSecondAddress(@Param("email") String email, @Param("address") String address);
+    @Query(value="update members set second_zip_code = :zipCode, second_address = :address where email = :email", nativeQuery = true)
+    void updateSecondAddress(@Param("email") String email, @Param("zipCode") String zipCode,  @Param("address") String address);
 
     @Transactional
     long deleteByEmail(String email);

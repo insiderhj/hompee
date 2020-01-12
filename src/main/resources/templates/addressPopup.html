@@ -64,8 +64,8 @@
         return pageUrl;
     }
 
-    function SetOpenerValue(retVal) {
-        window.opener.getAddressValue(retVal);
+    function SetOpenerValue(zipCode, address) {
+        window.opener.getAddressValue(zipCode, address);
         window.close();
     }
 
@@ -100,7 +100,7 @@
 
                                 $(xmlData).find("juso").each(function (i) {
                                     PostList += "<li>";
-                                    PostList += "<a href=\"javascript:SetOpenerValue('" + $(xmlData).find("roadAddr").eq(i).text().replace("'", " ") + "');\">";
+                                    PostList += "<a href=\"javascript:SetOpenerValue('" + $(xmlData).find("zipNo").eq(i).text() + "', '" + $(xmlData).find("roadAddr").eq(i).text().replace("'", " ") + "');\">";
                                     PostList += "<em>" + $(xmlData).find("zipNo").eq(i).text() + "</em>";
                                     PostList += "<span>" + $(xmlData).find("roadAddr").eq(i).text() + "<br/>" + $(xmlData).find("jibunAddr").eq(i).text() + "</span>";
                                     PostList += "</a>";

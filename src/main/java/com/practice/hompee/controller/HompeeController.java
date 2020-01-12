@@ -119,9 +119,25 @@ public class HompeeController {
     @PostMapping("/updateFirstAddress")
     @ResponseBody
     public void updateFirstAddress(MemberVO memberVO) {
+        String zipCode = memberVO.getFirstZipCode();
         String address = memberVO.getFirstAddress();
-        if (address.equals("")) address = null;
-        memberService.updateFirstAddress(memberVO.getEmail(), address);
+        if (zipCode.equals("")) {
+            zipCode = null;
+            address = null;
+        }
+        memberService.updateFirstAddress(memberVO.getEmail(), zipCode, address);
+    }
+
+    @PostMapping("/updateSecondAddress")
+    @ResponseBody
+    public void updateSecondAddress(MemberVO memberVO) {
+        String zipCode = memberVO.getSecondZipCode();
+        String address = memberVO.getSecondAddress();
+        if (zipCode.equals("")) {
+            zipCode = null;
+            address = null;
+        }
+        memberService.updateSecondAddress(memberVO.getEmail(), zipCode, address);
     }
 
     @GetMapping("/closeAccount")

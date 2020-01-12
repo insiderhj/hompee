@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<form class="form_container" th:action="@{/signUp}" th:object="${memberVO}" method="post">
+<a th:href="@{/}"><img src="image/hompeeLogo.png" id="logo"></a>
+<form id="formSignUp" class="form_container" th:action="@{/signUp}" th:object="${memberVO}" method="post" autocomplete="off">
     <h1>signUp</h1>
     <hr>
+
     <!--email-->
     <div class="form_row">
         <h3 class="form_title" id="email_title">Email</h3>
@@ -18,15 +20,15 @@
             <span class="form_box">
                 <input type="email" id="email" th:field="*{email}" placeholder="이메일" maxlength="100" required="required">
             </span>
-            <input type="button" id="btnSendCode" value="인증번호 발송"/>
-            <input type="button" id="btnChangeEmail" value="이메일 변경" style="display:none"/>
+            <input class="form_btn" type="button" id="btnSendCode" value="인증번호 발송"/>
+            <input class="form_btn" type="button" id="btnChangeEmail" value="이메일 변경" style="display:none"/>
         </div>
         <div class="form_email">
             <span class="form_box">
                 <input type="text" id="confirmCode" placeholder="인증번호" maxlength="6" required="required" disabled="disabled"/>
             </span>
             <!-- slide up the pop-up of send correctly and check -->
-            <input type="button" id="btnCheckCode" value="인증번호 확인" disabled="disabled"/>
+            <input class="form_btn" type="button" id="btnCheckCode" value="인증번호 확인" disabled="disabled"/>
         </div>
     </div>
 
@@ -34,7 +36,8 @@
     <div class="form_row">
         <h3 class="form_title" id="pswd_title">Password</h3>
         <span class="form_box">
-            <input type="password" th:field="*{password}" maxlength="20" required="required"/>
+            <input id="inputPassword" type="password" th:field="*{password}" maxlength="20" placeholder="비밀번호" required="required"/>
+            <input id="inputPasswordCheck" type="password" maxlength="20" placeholder="비밀번호 확인" required="required"/>
         </span>
     </div>
 
@@ -42,7 +45,7 @@
     <div class="form_row">
         <h3 class="form_title" id="name_title">User Name</h3>
         <span class="form_box">
-            <input type="text" th:field="*{name}" maxlength="20" required="required"/>
+            <input type="text" th:field="*{name}" maxlength="20" placeholder="이름" required="required"/>
         </span>
     </div>
 
@@ -50,7 +53,7 @@
     <div class="form_row">
         <h3 class="form_title" id="phone_title">Phone</h3>
         <span class="form_box">
-            <input type="tel" th:field="*{phoneNumber}" required="required"/>
+            <input type="tel" th:field="*{phoneNumber}" placeholder="전화번호" required="required"/>
         </span>
     </div>
 
@@ -59,25 +62,31 @@
         <h3 class="form_title" id="address_title1">Address1</h3>
         <div>
             <span class="form_box">
-                <input type="text" id="inputFirstAddress" th:field="*{firstAddress}" placeholder="주소" disabled="disabled" style="width:250px"/>
+                <input type="text" id="inputFirstZipCode" th:field="*{firstZipCode}" placeholder="우편번호" disabled="disabled" style="width:50px"/>
+                <input type="text" id="inputFirstAddress" th:field="*{firstAddress}" placeholder="주소" disabled="disabled" style="width:150px"/>
                 <input type="text" id="inputFirstAddressDetail" th:field="*{firstAddressDetail}" placeholder="상세주소" disabled="disabled"/>
             </span>
-            <input type="button" id="btnSearchFirstAddress" value="주소 찾기"/>
+            <span>
+                <input input class="form_btn" type="button" id="btnSearchFirstAddress" value="주소 찾기"/>
+            </span>
         </div>
     </div>
     <div class="form_row">
         <h3 class="form_title" id="address_title2">Address2</h3>
         <div>
             <span class="form_box">
-                <input type="text" id="inputSecondAddress" th:field="*{secondAddress}" placeholder="주소" disabled="disabled" style="width:250px"/>
+                <input type="text" id="inputSecondZipCode" th:field="*{secondZipCode}" placeholder="우편번호" disabled="disabled" style="width:50px"/>
+                <input type="text" id="inputSecondAddress" th:field="*{secondAddress}" placeholder="주소" disabled="disabled" style="width:150px"/>
                 <input type="text" id="inputSecondAddressDetail" th:field="*{secondAddressDetail}" placeholder="상세주소" disabled="disabled"/>
             </span>
-            <input type="button" id="btnSearchSecondAddress" value="주소 찾기"/>
+            <span>
+                <input input class="form_btn" type="button" id="btnSearchSecondAddress" value="주소 찾기"/>
+            </span>
         </div>
     </div>
 
     <div class="form_submit">
-        <input type="submit" id="submit" value="가입하기" disabled="disabled"/>
+        <input input class="form_btn" type="submit" id="submit" value="가입하기" disabled="disabled"/>
     </div>
 </form>
 

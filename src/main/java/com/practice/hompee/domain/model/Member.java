@@ -37,8 +37,14 @@ public class Member {
     @Column(name="phoneNumber")
     private String phoneNumber;
 
+    @Column(name="firstZipCode")
+    private String firstZipCode;
+
     @Column(name="firstAddress")
     private String firstAddress;
+
+    @Column(name="secondZipCode")
+    private String secondZipCode;
 
     @Column(name="secondAddress")
     private String secondAddress;
@@ -52,12 +58,14 @@ public class Member {
     private Timestamp updateTime;
 
     @Builder
-    public Member(String email, String password, String name, String phoneNumber, String firstAddress, String secondAddress) {
+    public Member(String email, String password, String name, String phoneNumber, String firstZipCode, String firstAddress, String secondZipCode,  String secondAddress) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.firstZipCode = firstZipCode;
         this.firstAddress = firstAddress;
+        this.secondZipCode = secondZipCode;
         this.secondAddress = secondAddress;
     }
 }

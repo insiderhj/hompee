@@ -15,10 +15,11 @@ function showStatus(status, removeClass, addClass) {
     $('#statusFrame').removeClass(removeClass);
     $('#statusFrame').addClass(addClass);
     $("#statusFrame").slideToggle("slow");
-    $("#statusFrame").delay(5000).fadeOut(1500);
+    $("#statusFrame").delay(2000).fadeOut(1500);
 }
 
-function getAddressValue(address) {
+function getAddressValue(zipCode, address) {
+    $('#input' + addressStatus + 'ZipCode').val(zipCode);
     $('#input' + addressStatus + 'Address').val(address);
     $('#input' + addressStatus + 'AddressDetail').val('');
     $('#input' + addressStatus + 'AddressDetail').attr('disabled', false);
@@ -27,6 +28,14 @@ function getAddressValue(address) {
 $('#btnChangePassword').on('click', function() {
     $('#divPassword').hide();
     $('#divNewPassword').show();
+});
+
+$('#btnCancelPassword').on('click', function() {
+    $('#divNewPassword').hide();
+    $('#inputOldPassword').val('');
+    $('#inputNewPassword').val('');
+    $('#inputNewPasswordCheck').val('');
+    $('#divPassword').show();
 });
 
 $('#formChangePassword').on('submit', function() {
@@ -42,12 +51,17 @@ $('#formChangePassword').on('submit', function() {
                 return;
             }
 
+            if ($('#inputNewPassword').val() !== $('#inputNewPasswordCheck').val()) {
+                showStatus('비밀번호와 비밀번호 확인란이 일치하지 않습니다.', 'getGrey', 'getRed');
+                return;
+            }
+
             $.ajax({
                 url: "/updatePassword",
                 type: "POST",
                 data: {password: $('#inputNewPassword').val()},
                 success: function() {
-                    showStatus('비밀번호가 변경되었습니다', 'getRed', 'getGrey');
+                    showStatus('비밀번호가 변경되었습니다.', 'getRed', 'getGrey');
 
                     $('#inputOldPassword').val('');
                     $('#inputNewPassword').val('');
@@ -111,6 +125,7 @@ $('#btnSearchFirstAddress').on('click', function() {
 
 $('#btnCancelFirstAddress').on('click', function() {
     $('#divNewFirstAddress').hide();
+    $('#inputFirstZipCode').val('');
     $('#inputFirstAddress').val('');
     $('#inputFirstAddressDetail').val('');
     $('#inputFirstAddressDetail').attr('disabled', true);
@@ -121,23 +136,64 @@ $('#btnCancelFirstAddress').on('click', function() {
 $('#formChangeFirstAddress').on('submit', function() {
     event.preventDefault();
 
+    var zipCode = $('#inputFirstZipCode').val();
+    var address = $('#inputFirstAddress').val() === '' ? '' : $('#inputFirstAddress').val() + ' ' + $('#inputFirstAddressDetail').val();
+
     $('#divNewFirstAddress').hide();
-
-    if ($('#inputFirstAddress').val() === '') {
-        $('#txtFirstAddress').text('');
-    } else {
-        $('#txtFirstAddress').text($('#inputFirstAddress').val() + ' ' + $('#inputFirstAddressDetail').val());
-    }
-
+    $('#inputFirstZipCode').val('');
     $('#inputFirstAddress').val('');
     $('#inputFirstAddressDetail').val('');
     $('#inputFirstAddressDetail').attr('disabled', true);
 
+    $('#txtFirstAddress').text(address);
     $('#divFirstAddress').show();
 
     $.ajax({
         url: "/updateFirstAddress",
         type: "POST",
-        data: {email: $('#email').text(), firstAddress: $('#txtFirstAddress').text()}
+        data: {email: $('#email').text(), firstZipCode: zipCode, firstAddress: address}
+    });
+});
+
+$('#btnChangeSecondAddress').on('click', function() {
+    $('#divSecondAddress').hide();
+    $('#divNewSecondAddress').show();
+});
+
+$('#btnSearchSecondAddress').on('click', function() {
+    var newWindow = window.open('/addressPopup', 'address popup', 'width=400, height=300, left=100, top=50');
+    addressStatus = 'Second';
+    newWindow.focus();
+});
+
+$('#btnCancelSecondAddress').on('click', function() {
+    $('#divNewSecondAddress').hide();
+    $('#inputSecondZipCode').val('');
+    $('#inputSecondAddress').val('');
+    $('#inputSecondAddressDetail').val('');
+    $('#inputSecondAddressDetail').attr('disabled', true);
+
+    $('#divSecondAddress').show();
+});
+
+$('#formChangeSecondAddress').on('submit', function() {
+    event.preventDefault();
+
+    var zipCode = $('#inputSecondZipCode').val();
+    var address = $('#inputSecondAddress').val() === '' ? '' : $('#inputSecondAddress').val() + ' ' + $('#inputSecondAddressDetail').val();
+
+    $('#divNewSecondAddress').hide();
+    $('#inputSecondZipCode').val('');
+    $('#inputSecondAddress').val('');
+    $('#inputSecondAddressDetail').val('');
+    $('#inputSecondAddressDetail').attr('disabled', true);
+
+    $('#txtSecondAddress').text(address);
+    $('#divSecondAddress').show();
+
+    $.ajax({
+        url: "/updateSecondAddress",
+        type: "POST",
+        data: {email: $('#email').text(), secondZipCode: zipCode, secondAddress: address}
     });
 });
