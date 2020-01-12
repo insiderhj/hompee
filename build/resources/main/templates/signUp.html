@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Hompee - signUp</title>
+    <title>hompee - 회원가입</title>
     <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
     <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="css/style.css">
@@ -11,27 +11,22 @@
 <form class="form_container" th:action="@{/signUp}" th:object="${memberVO}" method="post">
     <h1>signUp</h1>
     <hr>
-    <!--email, authNo-->
+    <!--email-->
     <div class="form_row">
         <h3 class="form_title" id="email_title">Email</h3>
         <div class="form_email">
             <span class="form_box">
                 <input type="email" id="email" th:field="*{email}" placeholder="이메일" maxlength="100" required="required">
             </span>
-            <!-- slide up the pop-up of send correctly and check -->
-            <span class="authNoBtn">
-                <input type="button" id="btnSendCode" value="인증번호 발송"/>
-                <input type="button" id="btnChangeEmail" value="이메일 변경" style="display:none"/>
-            </span>
+            <input type="button" id="btnSendCode" value="인증번호 발송"/>
+            <input type="button" id="btnChangeEmail" value="이메일 변경" style="display:none"/>
         </div>
-        <div class="signUp_email">
+        <div class="form_email">
             <span class="form_box">
                 <input type="text" id="confirmCode" placeholder="인증번호" maxlength="6" required="required" disabled="disabled"/>
             </span>
             <!-- slide up the pop-up of send correctly and check -->
-            <span class="authNoBtn">
-                <input type="button" id="btnCheckCode" value="인증번호 확인" disabled="disabled"/>
-            </span>
+            <input type="button" id="btnCheckCode" value="인증번호 확인" disabled="disabled"/>
         </div>
     </div>
 
@@ -62,26 +57,22 @@
     <!--address-->
     <div class="form_row">
         <h3 class="form_title" id="address_title1">Address1</h3>
-        <div class="signUp_address">
+        <div>
             <span class="form_box">
                 <input type="text" id="inputFirstAddress" th:field="*{firstAddress}" placeholder="주소" disabled="disabled" style="width:250px"/>
                 <input type="text" id="inputFirstAddressDetail" th:field="*{firstAddressDetail}" placeholder="상세주소" disabled="disabled"/>
             </span>
-            <span class="authNoBtn">
-                <input type="button" id="btnSearchFirstAddress" value="주소 찾기"/>
-            </span>
+            <input type="button" id="btnSearchFirstAddress" value="주소 찾기"/>
         </div>
     </div>
     <div class="form_row">
         <h3 class="form_title" id="address_title2">Address2</h3>
-        <div class="signUp_address">
+        <div>
             <span class="form_box">
                 <input type="text" id="inputSecondAddress" th:field="*{secondAddress}" placeholder="주소" disabled="disabled" style="width:250px"/>
                 <input type="text" id="inputSecondAddressDetail" th:field="*{secondAddressDetail}" placeholder="상세주소" disabled="disabled"/>
             </span>
-            <span class="authNoBtn">
-                <input type="button" id="btnSearchSecondAddress" value="주소 찾기"/>
-            </span>
+            <input type="button" id="btnSearchSecondAddress" value="주소 찾기"/>
         </div>
     </div>
 
@@ -91,7 +82,7 @@
 </form>
 
 <div id="statusFrame">
-    <span id="confirmStatus"></span>
+    <span id="signUpStatus"></span>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

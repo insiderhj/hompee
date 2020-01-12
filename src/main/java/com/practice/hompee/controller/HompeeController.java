@@ -116,6 +116,14 @@ public class HompeeController {
         memberService.updatePhoneNumber(memberVO.getEmail(), memberVO.getPhoneNumber());
     }
 
+    @PostMapping("/updateFirstAddress")
+    @ResponseBody
+    public void updateFirstAddress(MemberVO memberVO) {
+        String address = memberVO.getFirstAddress();
+        if (address.equals("")) address = null;
+        memberService.updateFirstAddress(memberVO.getEmail(), address);
+    }
+
     @GetMapping("/closeAccount")
     public String closeAccount() {
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

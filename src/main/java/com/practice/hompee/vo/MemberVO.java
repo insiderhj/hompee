@@ -23,8 +23,8 @@ public class MemberVO {
                 .password(password)
                 .name(name)
                 .phoneNumber(phoneNumber)
-                .firstAddress(firstAddress + ' ' + firstAddressDetail)
-                .secondAddress(secondAddress + ' ' + secondAddressDetail)
+                .firstAddress(firstAddress.equals("") ? null : firstAddress + ' ' + firstAddressDetail)
+                .secondAddress(secondAddress.equals("") ? null : secondAddress + ' ' + secondAddressDetail)
                 .build();
     }
 }

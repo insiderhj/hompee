@@ -18,7 +18,7 @@ function validateEmail(email) {
 }
 
 function showStatus(status, removeClass, addClass) {
-    $('#confirmStatus').html(status);
+    $('#signUpStatus').html(status);
     $('#statusFrame').removeClass(removeClass);
     $('#statusFrame').addClass(addClass);
     $("#statusFrame").slideToggle("slow");
@@ -30,6 +30,7 @@ function getAddressValue(address) {
     $('#input' + addressStatus + 'AddressDetail').val('');
     $('#input' + addressStatus + 'AddressDetail').attr('disabled', false);
 }
+
 // 인증번호 받기 버튼
 $('#btnSendCode').on('click', function() {
     // 이메일 사용 가능 여부 확인

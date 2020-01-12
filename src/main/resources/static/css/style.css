@@ -243,6 +243,13 @@ input[type="button"] {
     bottom: 10px;
 }
 
+input[type="submit"] {
+    width: 80px;
+    height: 30px;
+    position: relative;
+    bottom: 10px;
+}
+
 /* submit */
 #submit {
     width: 80px;

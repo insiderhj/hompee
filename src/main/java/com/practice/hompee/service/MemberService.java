@@ -54,6 +54,14 @@ public class MemberService implements UserDetailsService {
         memberRepository.updatePhoneNumber(email, phoneNumber);
     }
 
+    public void updateFirstAddress(String email, String address) {
+        memberRepository.updateFirstAddress(email, address);
+    }
+
+    public void updateSecondAddress(String email, String address) {
+        memberRepository.updateSecondAddress(email, address);
+    }
+
     public void deleteMember(String email) {
         memberRepository.deleteByEmail(email);
     }

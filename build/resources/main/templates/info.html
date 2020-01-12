@@ -2,59 +2,112 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>내정보</title>
+    <title>hompee - 내정보</title>
     <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
     <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="formContainer">
+<div class="form_container">
     <h1>내정보</h1>
     <hr>
 <!--    email-->
     <div class="form_row">
-        <h3>Email</h3>
+        <h3 class="form_title">Email</h3>
         <span id="email" th:text="${member.getEmail()}"></span>
     </div>
 <!--    password-->
     <div class="form_row">
         <h3 class="form_title">Password</h3>
         <form id="formChangePassword">
-            <input type="password" id="inputOldPassword" placeholder="현재 비밀번호" style="display:none" required="required">
-            <input type="password" id="inputNewPassword" placeholder="새 비밀번호" style="display:none" required="required">
-            <button type="button" id="btnChangePassword">비밀번호 변경하기</button>
-            <button type="submit" id="btnSubmitPassword" style="display:none">완료</button>
-            <span id="changePasswordStatus"></span>
+            <div id="divPassword">
+                <button type="button" id="btnChangePassword">비밀번호 변경하기</button>
+            </div>
+            <div id="divNewPassword" style="display:none">
+                <span class="form_box">
+                    <input type="password" id="inputOldPassword" placeholder="현재 비밀번호" required="required">
+                    <input type="password" id="inputNewPassword" placeholder="새 비밀번호" required="required">
+                </span>
+                <input type="submit" id="btnSubmitPassword" value="완료"/>
+            </div>
         </form>
     </div>
+<!--    name-->
     <div class="form_row">
         <form id="formChangeName">
             <h3 class="form_title">Name</h3>
-            <span id="txtName" th:text="${member.getName()}"></span>
-            <input type="text" id="inputName" th:value="${member.getName()}" style="display:none" required="required">
-            <button type="button" id="btnChangeName">수정</button>
-            <button type="submit" id="btnSubmitName" style="display:none">완료</button>
+            <div id="divName">
+                <span id="txtName" th:text="${member.getName()}"></span>
+                <input type="button" id="btnChangeName" value="수정"/>
+            </div>
+            <div id="divNewName" style="display:none">
+                <span class="form_box">
+                    <input type="text" id="inputName" th:value="${member.getName()}" required="required">
+                </span>
+                <input type="submit" id="btnSubmitName" value="완료"/>
+            </div>
         </form>
     </div>
+<!--    phone-->
     <div class="form_row">
         <form id="formChangePhoneNumber">
             <h3 class="form_title">Phone</h3>
-            <span id="txtPhoneNumber" th:text="${member.getPhoneNumber()}"></span>
-            <input type="tel" id="inputPhoneNumber" th:value="${member.getPhoneNumber()}" style="display:none" required="required">
-            <button type="button" id="btnChangePhoneNumber">수정</button>
-            <button type="button" id="btnSubmitPhoneNumber" style="display:none">완료</button>
+            <div id="divPhoneNumber">
+                <span id="txtPhoneNumber" th:text="${member.getPhoneNumber()}"></span>
+                <input type="button" id="btnChangePhoneNumber" value="수정"/>
+            </div>
+            <div id="divNewPhoneNumber" style="display:none">
+                <span class="form_box">
+                    <input type="tel" id="inputPhoneNumber" th:value="${member.getPhoneNumber()}" required="required">
+                </span>
+                <input type="submit" id="btnSubmitPhoneNumber" value="완료"/>
+            </div>
         </form>
     </div>
     <div class="form_row">
         <form id="formChangeFirstAddress">
             <h3 class="form_title">Address1</h3>
+            <div id="divFirstAddress">
+                <span id="txtFirstAddress" th:text="${member.getFirstAddress()} == null ? ${member.getFirstAddress()} : ''"></span>
+                <input type="button" id="btnChangeFirstAddress" value="수정"/>
+            </div>
+            <div id="divNewFirstAddress" style="display:none">
+                <span class="form_box">
+                    <input type="text" id="inputFirstAddress" placeholder="주소" disabled="disabled" style="width:250px"/>
+                    <input type="text" id="inputFirstAddressDetail" placeholder="상세주소" disabled="disabled"/>
+                </span>
+                <input type="button" id="btnSearchFirstAddress" value="주소 찾기"/>
+                <div>
+                    <input type="button" id="btnCancelFirstAddress" value="취소"/>
+                    <input type="submit" id="btnSubmitFirstAddress" value="완료"/>
+                </div>
+            </div>
         </form>
     </div>
     <div class="form_row">
         <form id="formChangeSecondAddress">
             <h3 class="form_title">Address2</h3>
+            <div id="divSecondAddress">
+                <span id="txtSecondAddress" th:text="${member.getSecondAddress()} == null ? ${member.getSecondAddress()} : ''"></span>
+                <input type="button" id="btnChangeSecondAddress" value="수정"/>
+            </div>
+            <div id="divNewSecondAddress" style="display:none">
+                <span class="form_box">
+                    <input type="text" id="inputSecondAddress" placeholder="주소" disabled="disabled" style="width:250px"/>
+                    <input type="text" id="inputSecondAddressDetail" placeholder="상세주소" disabled="disabled"/>
+                </span>
+                <input type="button" id="btnSearchSecondAddress" value="주소 찾기"/>
+                <div>
+                    <input type="button" id="btnCancelSecondAddress" value="취소"/>
+                    <input type="submit" id="btnSubmitSecondAddress" value="완료"/>
+                </div>
+            </div>
         </form>
     </div>
+</div>
+
+<div id="statusFrame">
+    <span id="infoStatus"></span>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

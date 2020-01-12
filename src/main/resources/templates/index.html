@@ -12,7 +12,7 @@
         <input type ="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <input type="email" name="username" placeholder="Email" maxlength="20">
         <input type="password" name="password" placeholder="Password" maxlength="20">
-        <input class="index_menu" type="submit" value="로그인">
+        <button class="index_menu" type="submit">로그인</button>
         <a class="index_menu" th:href="@{/forgotPassword}">비밀번호 찾기</a>
         <a class="index_menu" th:href="@{/signUp}">회원가입</a>
     </form>
