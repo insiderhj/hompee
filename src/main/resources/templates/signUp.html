@@ -2,117 +2,99 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>회원가입 페이지</title>
+    <title>Hompee - signUp</title>
     <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
     <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>회원 가입</h1>
-<hr>
-<form th:action="@{/signUp}" th:object="${memberVO}" method="post">
-    <input type="email" id="email" th:field="*{email}" placeholder="이메일" required="required">
-    <button type="button" id="btnSendCode">인증번호 받기</button>
-    <button type="button" id="btnChangeEmail" style="display:none">이메일 변경</button>
-    <input type="text" id="confirmCode" disabled="disabled" placeholder="인증번호" required="required">
-    <button type="button" id="btnCheckCode" disabled="disabled">인증번호 확인</button>
-    <input type="password" th:field="*{password}" placeholder="비밀번호" required="required">
-    <input type="text" th:field="*{name}" placeholder="이름" required="required">
-    <input type="tel" th:field="*{phoneNumber}" placeholder="전화번호" required="required">
-    <button type="submit" id="submit" disabled="disabled">가입하기</button>
+<form class="form_container" th:action="@{/signUp}" th:object="${memberVO}" method="post">
+    <h1>signUp</h1>
+    <hr>
+    <!--email, authNo-->
+    <div class="form_row">
+        <h3 class="form_title" id="email_title">Email</h3>
+        <div class="form_email">
+            <span class="form_box">
+                <input type="email" id="email" th:field="*{email}" placeholder="이메일" maxlength="100" required="required">
+            </span>
+            <!-- slide up the pop-up of send correctly and check -->
+            <span class="form_btn">
+                <input type="button" id="btnSendCode" value="인증번호 발송"/>
+                <input type="button" id="btnChangeEmail" value="이메일 변경" style="display:none"/>
+            </span>
+        </div>
+        <div class="form_email">
+            <span class="form_box">
+                <input type="text" id="confirmCode" placeholder="인증번호" maxlength="6" required="required" disabled="disabled"/>
+            </span>
+            <!-- slide up the pop-up of send correctly and check -->
+            <span class="form_btn">
+                <input type="button" id="btnCheckCode" value="인증번호 확인" disabled="disabled"/>
+            </span>
+        </div>
+    </div>
+
+    <!-- password -->
+    <div class="form_row">
+        <h3 class="form_title" id="pswd_title">Password</h3>
+        <span class="form_box">
+            <input type="password" th:field="*{password}" maxlength="20" required="required"/>
+        </span>
+    </div>
+
+    <!-- name -->
+    <div class="form_row">
+        <h3 class="form_title" id="name_title">User Name</h3>
+        <span class="form_box">
+            <input type="text" th:field="*{name}" maxlength="20" required="required"/>
+        </span>
+    </div>
+
+    <!-- phone -->
+    <div class="form_row">
+        <h3 class="form_title" id="phone_title">Phone</h3>
+        <span class="form_box">
+            <input type="tel" th:field="*{phoneNumber}" required="required"/>
+        </span>
+    </div>
+
+    <!--address-->
+    <div class="form_row">
+        <h3 class="form_title" id="address_title1">Address1</h3>
+        <div>
+            <span class="form_box">
+                <input type="text" id="inputFirstAddress" th:field="*{firstAddress}" placeholder="주소" disabled="disabled" style="width:250px"/>
+                <input type="text" id="inputFirstAddressDetail" th:field="*{firstAddressDetail}" placeholder="상세주소" disabled="disabled"/>
+            </span>
+            <span class="form_btn">
+                <input type="button" id="btnSearchFirstAddress" value="주소 찾기"/>
+            </span>
+        </div>
+    </div>
+    <div class="form_row">
+        <h3 class="form_title" id="address_title2">Address2</h3>
+        <div>
+            <span class="form_box">
+                <input type="text" id="inputSecondAddress" th:field="*{secondAddress}" placeholder="주소" disabled="disabled" style="width:250px"/>
+                <input type="text" id="inputSecondAddressDetail" th:field="*{secondAddressDetail}" placeholder="상세주소" disabled="disabled"/>
+            </span>
+            <span class="form_btn">
+                <input type="button" id="btnSearchSecondAddress" value="주소 찾기"/>
+            </span>
+        </div>
+    </div>
+
+    <div class="form_submit">
+        <input type="submit" id="submit" value="가입하기" disabled="disabled"/>
+    </div>
 </form>
-<p id="confirmStatus"></p>
+
+<div id="statusFrame">
+    <span id="confirmStatus"></span>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-    // spring security 사용중일 때 ajax통신 가능하게 해주는 부분
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-
-    $(function() {
-        $(document).ajaxSend(function(e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-        });
-    });
-
-    // 사용 가능한 이메일이면 true, 아니면 false 리턴
-    function validateEmail(email) {
-        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-        return re.test(email);
-    }
-
-    var confirmCode = undefined;
-
-    // 인증번호 받기 버튼
-    $('#btnSendCode').on('click', function() {
-        // 이메일 사용 가능 여부 확인
-        if (validateEmail($('#email').val())) {
-            // 이메일 중복 체크
-            $.ajax({
-                url: "/emailExists",
-                type: "POST",
-                data: {email: $('#email').val()},
-                success: function (emailExists) {
-                    // 중복이 없다면 인증번호 발송
-                    if (!emailExists) {
-                        $('#email').attr('disabled', true);
-                        $('#btnSendCode').hide();
-                        $('#btnChangeEmail').show();
-
-                        $('#confirmCode').attr('disabled', false);
-                        $('#btnCheckCode').attr('disabled', false);
-                        $('#confirmStatus').text('이메일로 인증번호가 발송되었습니다.');
-
-                        $.ajax({
-                            url: "/sendConfirmCode",
-                            type: "POST",
-                            data: {email: $('#email').val()},
-                            success: function (data) {
-                                confirmCode = data;
-                            }
-                        });
-                    }
-                    // 중복이 있다면 alert
-                    else {
-                        alert('이미 존재하는 이메일입니다.');
-                    }
-                }
-            });
-        } else {
-            $('#confirmStatus').text('올바른 이메일 주소를 입력하세요.')
-        }
-    });
-
-    // 이메일 변경 버튼 (초기상태로 돌아감)
-    $('#btnChangeEmail').on('click', function() {
-        $('#email').val('');
-        $('#email').attr('disabled', false);
-        $('#btnChangeEmail').hide();
-        $('#btnSendCode').show();
-
-        $('#confirmCode').val('');
-        $('#confirmCode').attr('disabled', true);
-        $('#btnCheckCode').attr('disabled', true);
-        $('#submit').attr('disabled', true);
-
-        $('#confirmStatus').text('');
-    });
-
-    // 인증번호 확인 버튼
-    $('#btnCheckCode').on('click', function() {
-        if (confirmCode === $('#confirmCode').val()) {
-            $('#confirmStatus').text('이메일 인증이 완료되었습니다!');
-
-            $('#confirmCode').attr('disabled', true);
-            $('#btnCheckCode').attr('disabled', true);
-            $('#submit').attr('disabled', false);
-        } else {
-            $('#confirmStatus').text('인증번호가 틀렸습니다.')
-        }
-    });
-
-    $('#submit').on('click', function() {
-        $('#email').attr('disabled', false);
-        alert('회원가입이 완료되었습니다.');
-    })
-</script>
+<script src="js/signUp.js"></script>
 </body>
 </html>

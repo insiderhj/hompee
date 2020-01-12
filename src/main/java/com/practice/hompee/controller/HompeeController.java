@@ -34,6 +34,11 @@ public class HompeeController {
 
         boolean auth = SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MEMBER"));
         mav.addObject("auth", auth);
+
+        if (auth) {
+            UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            mav.addObject("name", memberService.getMember(userDetails.getUsername()).getName());
+        }
         return mav;
     }
 
@@ -73,11 +78,6 @@ public class HompeeController {
         memberService.updatePassword(memberVO.getEmail(), memberVO.getPassword());
 
         return "redirect:/";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
     }
 
     @GetMapping("/info")
@@ -124,5 +124,10 @@ public class HompeeController {
         SecurityContextHolder.clearContext();
 
         return "redirect:/";
+    }
+
+    @GetMapping("/addressPopup")
+    public String addressPopup() {
+        return "addressPopup";
     }
 }

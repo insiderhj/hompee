@@ -5,139 +5,59 @@
     <title>내정보</title>
     <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
     <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>내정보</h1>
-<hr>
-<p>이메일</p>
-<span id="email" th:text="${member.getEmail()}"></span>
-<p>비밀번호</p>
-<form id="formChangePassword">
-    <input type="password" id="inputOldPassword" placeholder="현재 비밀번호" style="display:none" required="required">
-    <input type="password" id="inputNewPassword" placeholder="새 비밀번호" style="display:none" required="required">
-    <button type="button" id="btnChangePassword">비밀번호 변경하기</button>
-    <button type="submit" id="btnSubmitPassword" style="display:none">완료</button>
-    <span id="changePasswordStatus"></span>
-</form>
-<form id="formChangeName">
-    <p>이름</p>
-    <span id="txtName" th:text="${member.getName()}"></span>
-    <input type="text" id="inputName" th:value="${member.getName()}" style="display:none" required="required">
-    <button type="button" id="btnChangeName">수정</button>
-    <button type="submit" id="btnSubmitName" style="display:none">완료</button>
-</form>
-<form id="formChangePhoneNumber">
-    <p>전화번호</p>
-    <span id="txtPhoneNumber" th:text="${member.getPhoneNumber()}"></span>
-    <input type="tel" id="inputPhoneNumber" th:value="${member.getPhoneNumber()}" style="display:none" required="required">
-    <button type="button" id="btnChangePhoneNumber">수정</button>
-    <button type="button" id="btnSubmitPhoneNumber" style="display:none">완료</button>
-</form>
+<div class="formContainer">
+    <h1>내정보</h1>
+    <hr>
+<!--    email-->
+    <div class="form_row">
+        <h3>Email</h3>
+        <span id="email" th:text="${member.getEmail()}"></span>
+    </div>
+<!--    password-->
+    <div class="form_row">
+        <h3 class="form_title">Password</h3>
+        <form id="formChangePassword">
+            <input type="password" id="inputOldPassword" placeholder="현재 비밀번호" style="display:none" required="required">
+            <input type="password" id="inputNewPassword" placeholder="새 비밀번호" style="display:none" required="required">
+            <button type="button" id="btnChangePassword">비밀번호 변경하기</button>
+            <button type="submit" id="btnSubmitPassword" style="display:none">완료</button>
+            <span id="changePasswordStatus"></span>
+        </form>
+    </div>
+    <div class="form_row">
+        <form id="formChangeName">
+            <h3 class="form_title">Name</h3>
+            <span id="txtName" th:text="${member.getName()}"></span>
+            <input type="text" id="inputName" th:value="${member.getName()}" style="display:none" required="required">
+            <button type="button" id="btnChangeName">수정</button>
+            <button type="submit" id="btnSubmitName" style="display:none">완료</button>
+        </form>
+    </div>
+    <div class="form_row">
+        <form id="formChangePhoneNumber">
+            <h3 class="form_title">Phone</h3>
+            <span id="txtPhoneNumber" th:text="${member.getPhoneNumber()}"></span>
+            <input type="tel" id="inputPhoneNumber" th:value="${member.getPhoneNumber()}" style="display:none" required="required">
+            <button type="button" id="btnChangePhoneNumber">수정</button>
+            <button type="button" id="btnSubmitPhoneNumber" style="display:none">완료</button>
+        </form>
+    </div>
+    <div class="form_row">
+        <form id="formChangeFirstAddress">
+            <h3 class="form_title">Address1</h3>
+        </form>
+    </div>
+    <div class="form_row">
+        <form id="formChangeSecondAddress">
+            <h3 class="form_title">Address2</h3>
+        </form>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-    // spring security 사용중일 때 ajax통신 가능하게 해주는 부분
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-
-    $(function() {
-        $(document).ajaxSend(function(e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-        });
-    });
-
-    $('#btnChangePassword').on('click', function() {
-        $('#btnChangePassword').hide();
-
-        $('#inputOldPassword').show();
-        $('#inputNewPassword').show();
-        $('#btnSubmitPassword').show()
-    });
-
-    $('#formChangePassword').on('submit', function() {
-        event.preventDefault();
-
-        $.ajax({
-            url: "/checkPassword",
-            type: "POST",
-            data: {password: $('#inputOldPassword').val()},
-            success: function(result) {
-                if (!result) {
-                    $('#changePasswordStatus').text('현재 비밀번호가 틀렸습니다.');
-                    return;
-                }
-
-                $.ajax({
-                    url: "/updatePassword",
-                    type: "POST",
-                    data: {password: $('#inputNewPassword').val()},
-                    success: function() {
-                        $('#changePasswordStatus').text('');
-                        alert('비밀번호가 변경되었습니다.');
-
-                        $('#inputOldPassword').val('');
-                        $('#inputNewPassword').val('');
-
-                        $('#inputOldPassword').hide();
-                        $('#inputNewPassword').hide();
-                        $('#btnSubmitPassword').hide();
-
-                        $('#btnChangePassword').show();
-                    }
-                })
-            }
-        })
-    });
-
-    $('#btnChangeName').on('click', function() {
-        $('#txtName').hide();
-        $('#btnChangeName').hide();
-
-        $('#inputName').show();
-        $('#btnSubmitName').show();
-    });
-
-    $('#formChangeName').on('submit', function() {
-        event.preventDefault();
-
-        $('#inputName').hide();
-        $('#btnSubmitName').hide();
-
-        $('#txtName').text($('#inputName').val());
-        $('#txtName').show();
-        $('#btnChangeName').show();
-
-        $.ajax({
-            url: "/updateName",
-            type: "POST",
-            data: {email: $('#email').text(), name:$('#txtName').text()}
-        });
-    });
-
-    $('#btnChangePhoneNumber').on('click', function() {
-        $('#txtPhoneNumber').hide();
-        $('#btnChangePhoneNumber').hide();
-
-        $('#inputPhoneNumber').show();
-        $('#btnSubmitPhoneNumber').show();
-    });
-
-    $('#formChangePhoneNumber').on('submit', function() {
-        event.preventDefault();
-
-        $('#inputPhoneNumber').hide();
-        $('#btnSubmitPhoneNumber').hide();
-
-        $('#txtPhoneNumber').text($('#inputPhoneNumber').val());
-        $('#txtPhoneNumber').show();
-        $('#btnChangePhoneNumber').show();
-
-        $.ajax({
-            url: "/updatePhoneNumber",
-            type: "POST",
-            data: {email: $('#email').text(), phoneNumber:$('#txtPhoneNumber').text()}
-        });
-    });
-</script>
+<script type="text/javascript" src="js/info.js"></script>
 </body>
 </html>

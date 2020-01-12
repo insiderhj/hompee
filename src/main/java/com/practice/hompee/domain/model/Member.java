@@ -37,11 +37,11 @@ public class Member {
     @Column(name="phoneNumber")
     private String phoneNumber;
 
-    @Column(name="address1")
-    private String address1;
+    @Column(name="firstAddress")
+    private String firstAddress;
 
-    @Column(name="address2")
-    private String address2;
+    @Column(name="secondAddress")
+    private String secondAddress;
 
     @CreationTimestamp
     @Column(name="createTime")
@@ -52,12 +52,12 @@ public class Member {
     private Timestamp updateTime;
 
     @Builder
-    public Member(String email, String password, String name, String phoneNumber, String address1, String address2) {
+    public Member(String email, String password, String name, String phoneNumber, String firstAddress, String secondAddress) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.address1=address1;
-        this.address2=address2;
+        this.firstAddress = firstAddress;
+        this.secondAddress = secondAddress;
     }
 }

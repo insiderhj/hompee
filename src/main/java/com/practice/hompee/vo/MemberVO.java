@@ -12,8 +12,10 @@ public class MemberVO {
     private String password;
     private String name;
     private String phoneNumber;
-    private String address1;
-    private String address2;
+    private String firstAddress;
+    private String firstAddressDetail;
+    private String secondAddress;
+    private String secondAddressDetail;
 
     public Member toEntity() {
         return Member.builder()
@@ -21,6 +23,8 @@ public class MemberVO {
                 .password(password)
                 .name(name)
                 .phoneNumber(phoneNumber)
+                .firstAddress(firstAddress + ' ' + firstAddressDetail)
+                .secondAddress(secondAddress + ' ' + secondAddressDetail)
                 .build();
     }
 }
