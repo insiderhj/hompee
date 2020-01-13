@@ -102,17 +102,18 @@ $('#btnCheckCode').on('click', function() {
 
 // 주소 찾기 버튼
 $('#btnSearchFirstAddress').on('click', function() {
-    var newWindow = window.open('/addressPopup', 'address popup', 'width=400, height=300, left=100, top=50');
+    var newWindow = window.open('/addressPopup', 'address popup', 'width=500, height=500, left=100, top=50');
     addressStatus = 'First';
     newWindow.focus();
 });
 
 $('#btnSearchSecondAddress').on('click', function() {
-    var newWindow = window.open('/addressPopup', 'address popup', 'width=400, height=300, left=100, top=50');
+    var newWindow = window.open('/addressPopup', 'address popup', 'width=500, height=500, left=100, top=50');
     addressStatus = 'Second';
     newWindow.focus();
 });
 
+// submit
 $('#formSignUp').on('submit', function() {
     $('#email').attr('disabled', false);
     $('#inputFirstZipCode').attr('disabled', false);

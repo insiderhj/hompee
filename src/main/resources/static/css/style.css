@@ -4,13 +4,18 @@ body {
     background: #2d3436;
 }
 
-img {
+.logo {
     margin: 20px auto;
     width: 200px;
 }
 
 hr {
     color: #636e72;
+}
+
+a {
+    text-decoration: none;
+    color: #bdc3c7;
 }
 
 p {
@@ -245,6 +250,53 @@ select {
 .form_email {
     display: block;
     padding: 2px;
+}
+
+.address_form {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.search_input {
+    background: transparent;
+    border: none;
+    outline: 0;
+    border-bottom: 2px solid #bdc3c7;
+    color: #bdc3c7;
+    width: 350px;
+    padding: 5px;
+    transition: 0.25s;
+}
+
+.search_input:focus {
+    border-bottom: 2px solid #2ecc71;
+}
+
+.search_area {
+    padding-bottom: 10px;
+}
+
+.search_area hr {
+    border: 1px solid #4f5658;
+}
+
+.zipCode {
+    color: white;
+}
+
+#div_paginate {
+    text-align: center;
+}
+
+.page_number {
+    position: relative;
+    bottom: 5px;
+    padding: 3px;
+}
+
+.first, .prev, .next, .last {
+    padding: 1px;
 }
 
 /* confirmStatus */

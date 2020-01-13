@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<a th:href="@{/}"><img src="image/hompeeLogo.png" id="logo"></a>
+<a th:href="@{/}"><img class="logo" src="image/hompeeLogo.png" id="logo"></a>
 <form id="formSignUp" class="form_container" th:action="@{/signUp}" th:object="${memberVO}" method="post" autocomplete="off">
     <h1>signUp</h1>
     <hr>

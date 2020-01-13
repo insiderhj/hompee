@@ -25,11 +25,13 @@ function getAddressValue(zipCode, address) {
     $('#input' + addressStatus + 'AddressDetail').attr('disabled', false);
 }
 
+// 비밀번호 변경
 $('#btnChangePassword').on('click', function() {
     $('#divPassword').hide();
     $('#divNewPassword').show();
 });
 
+// 비밀번호 변경 취소
 $('#btnCancelPassword').on('click', function() {
     $('#divNewPassword').hide();
     $('#inputOldPassword').val('');
@@ -38,6 +40,7 @@ $('#btnCancelPassword').on('click', function() {
     $('#divPassword').show();
 });
 
+// 비밀번호 변경 확인
 $('#formChangePassword').on('submit', function() {
     event.preventDefault();
 
@@ -74,11 +77,13 @@ $('#formChangePassword').on('submit', function() {
     })
 });
 
+// 이름 변경
 $('#btnChangeName').on('click', function() {
     $('#divName').hide();
     $('#divNewName').show();
 });
 
+// 이름 변경 완료
 $('#formChangeName').on('submit', function() {
     event.preventDefault();
 
@@ -93,11 +98,13 @@ $('#formChangeName').on('submit', function() {
     });
 });
 
+// 전화번호 변경
 $('#btnChangePhoneNumber').on('click', function() {
     $('#divPhoneNumber').hide();
     $('#divNewPhoneNumber').show();
 });
 
+// 전화번호 변경 완료
 $('#formChangePhoneNumber').on('submit', function() {
     event.preventDefault();
 
@@ -112,17 +119,20 @@ $('#formChangePhoneNumber').on('submit', function() {
     });
 });
 
+// 주소1 변경
 $('#btnChangeFirstAddress').on('click', function() {
     $('#divFirstAddress').hide();
     $('#divNewFirstAddress').show();
 });
 
+// 주소1 주소 찾기
 $('#btnSearchFirstAddress').on('click', function() {
-    var newWindow = window.open('/addressPopup', 'address popup', 'width=400, height=300, left=100, top=50');
+    var newWindow = window.open('/addressPopup', 'address popup', 'width=500, height=500, left=100, top=50');
     addressStatus = 'First';
     newWindow.focus();
 });
 
+// 주소1 변경 취소
 $('#btnCancelFirstAddress').on('click', function() {
     $('#divNewFirstAddress').hide();
     $('#inputFirstZipCode').val('');
@@ -133,6 +143,7 @@ $('#btnCancelFirstAddress').on('click', function() {
     $('#divFirstAddress').show();
 });
 
+// 주소1 변경 완료
 $('#formChangeFirstAddress').on('submit', function() {
     event.preventDefault();
 
@@ -155,17 +166,20 @@ $('#formChangeFirstAddress').on('submit', function() {
     });
 });
 
+// 주소2 변경
 $('#btnChangeSecondAddress').on('click', function() {
     $('#divSecondAddress').hide();
     $('#divNewSecondAddress').show();
 });
 
+// 주소2 주소찾기
 $('#btnSearchSecondAddress').on('click', function() {
-    var newWindow = window.open('/addressPopup', 'address popup', 'width=400, height=300, left=100, top=50');
+    var newWindow = window.open('/addressPopup', 'address popup', 'width=500, height=500, left=100, top=50');
     addressStatus = 'Second';
     newWindow.focus();
 });
 
+// 주소2 변경 취소
 $('#btnCancelSecondAddress').on('click', function() {
     $('#divNewSecondAddress').hide();
     $('#inputSecondZipCode').val('');
@@ -176,6 +190,7 @@ $('#btnCancelSecondAddress').on('click', function() {
     $('#divSecondAddress').show();
 });
 
+// 주소2 변경 완료
 $('#formChangeSecondAddress').on('submit', function() {
     event.preventDefault();
 
