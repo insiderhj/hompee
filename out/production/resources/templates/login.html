@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>hompee - 로그인</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a th:href="@{/}"><img class="logo" src="image/hompeeLogo.png" id="logo"></a>
+<form class="box" th:action="@{/login}" method="post" autocomplete="off">
+    <h1>Login</h1>
+    <input type ="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="email" name="username" placeholder="Email" maxlength="20">
+    <input type="password" name="password" placeholder="Password" maxlength="20">
+    <button class="index_menu" type="submit">로그인</button>
+    <a class="index_menu" th:href="@{/forgotPassword}">비밀번호 찾기</a>
+    <a class="index_menu" th:href="@{/signUp}">회원가입</a>
+</form>
+</body>
+</html>

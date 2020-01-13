@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>hompee - 주소 검색</title>
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div style="width:500px;height:500px">
+    <input type="hidden" id="hid_Key" value="devU01TX0FVVEgyMDIwMDExMjEzNDAxODEwOTM4MDY="/>
+    <form class="address_form" id="formSearchAddress" autocomplete="off">
+        <input class="search_input" type="text" id="inputSearchAddress" placeholder="주소 검색"/>
+        <input class="form_btn" type="submit" id="btnSearch" value="검색"/>
+    </form>
+    <div id="dvSearchArea" class="search_area"></div>
+    <div id="div_paginate" class="paginate"></div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/addressPopup.js"></script>
+</body>
+</html>
