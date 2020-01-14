@@ -43,6 +43,11 @@ public class HompeeController {
         return mav;
     }
 
+    @GetMapping("/loginFailed")
+    public String loginFailed() {
+        return "loginFailed";
+    }
+
     @PostMapping("/sendConfirmCode")
     @ResponseBody
     public String sendConfirmCode(MemberVO memberVO) throws MessagingException {

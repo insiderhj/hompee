@@ -1,5 +1,4 @@
 body {
-
     font-family: sans-serif;
     background: #2d3436;
 }
@@ -33,7 +32,6 @@ p:hover {
     color: #74b9ff;
 }
 
-/* class:: index.html:: .box, .index_menu */
 .box {
     width: 500px;
     padding: 40px;
@@ -48,9 +46,14 @@ p:hover {
     color: white;
     text-transform: uppercase;
     font-weight: 400;
-    width: 105px;
     margin: 20px auto;
-    transition: 0.25s;
+}
+
+.box h3 {
+    color: #bdc3c7;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 20px auto;
 }
 
 .box input[type="email"], .box input[type="password"] {
@@ -160,7 +163,8 @@ p:hover {
     width: 550px;
     height: 700px;
     top: 0%;
-    left: 30%;
+    left: 50%;
+    transform: translate(-50%, 0%);
     color: #bdc3c7;
     text-align: center;
 }

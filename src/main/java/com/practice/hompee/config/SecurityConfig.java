@@ -1,6 +1,7 @@
 package com.practice.hompee.config;
 
 
+import com.practice.hompee.domain.role.Role;
 import com.practice.hompee.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,12 +34,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception
     {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/", "/signUp", "/forgotPassword", "/addressPopup").permitAll()
+                .antMatchers("/info").hasRole(Role.MEMBER.toString())
+//                .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .defaultSuccessUrl("/")
-                .failureUrl("/")
+                .failureUrl("/loginFailed")
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
