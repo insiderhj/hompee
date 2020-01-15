@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/signUp", "/forgotPassword", "/addressPopup").permitAll()
                 .antMatchers("/info").hasRole(Role.MEMBER.toString())
-//                .anyRequest().permitAll()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/")
